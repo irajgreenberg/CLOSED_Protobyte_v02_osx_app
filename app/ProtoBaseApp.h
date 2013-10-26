@@ -69,7 +69,8 @@ namespace ijg {
         int appHeight;
         std::string appTitle;
         
-        // things to add
+        // things to add and experiments
+        void toroid();
         
         
        

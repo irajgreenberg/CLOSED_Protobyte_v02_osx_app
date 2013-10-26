@@ -52,4 +52,9 @@ void ProtoBaseApp::mouseDragged(){}
 void ProtoBaseApp::onResized(){}
 void ProtoBaseApp::onClosed(){}
 
+// EXPERMENTS
+void ProtoBaseApp::toroid(){
+    add(std::move(std::unique_ptr<ProtoToroid>(new ProtoToroid(Vec3f(0, 0, -400), Vec3f(0, ProtoMath::PI/3.0,0), Dim3f(20.3, 20.3, 20.3),ProtoColor4f(.5, .2, .3, 1), 75, 75, .9, .2))));
+}
+
 

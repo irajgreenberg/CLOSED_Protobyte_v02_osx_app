@@ -17,12 +17,11 @@ using namespace ijg;
 class App01 : public ProtoBaseApp {
 
 private:
-    ProtoWorld* world;
 
 public:
     App01();
-    void setup();
-    void draw();
+    void init();
+    void run();
     
     // Mouses/Key Events
     void keyPressed();

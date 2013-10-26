@@ -5,8 +5,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include "../../Protobyte_v02/ProtoMath.h"
 #include "../../Protobyte_v02/ProtoWorld.h"
+#include "../../Protobyte_v02/ProtoMath.h"
 #include "../../Protobyte_v02/ProtoVector2.h"
 #include "../../Protobyte_v02/ProtoVector3.h"
 #include "../../Protobyte_v02/ProtoToroid.h"
@@ -25,14 +25,23 @@ namespace ijg {
     
     class ProtoBaseApp {
         
+        friend class ProtoPlasm;
+        
     public:
         ProtoBaseApp();
         
-        void setAppWindowDetails(int appWidth, int appHeight, std::string appTitle);
+       // void setAppWindowDetails(int appWidth, int appHeight, std::string appTitle);
         
+        
+    private:
+        // only needed to be called by ProtoPlasm class - a friend
+        void setWorld(std::unique_ptr<ProtoWorld> world);
+        void runWorld();
+        
+    protected:
         // pure virtual funcs require override
-        virtual void setup()=0;
-        virtual void draw()=0;
+        virtual void init()=0;
+        virtual void run()=0;
         
         // mouse/key events
         virtual void keyPressed();
@@ -48,18 +57,22 @@ namespace ijg {
         virtual void onClosed();
         
         
-        void add(ProtoGeom3* geom);
+        // Add content to world
+        void add(std::unique_ptr<ProtoGeom3> geom);
+        void add(std::unique_ptr<ProtoLight> lt);
+        void add(std::unique_ptr<ProtoCamera> cam);
+        //void initWorld();
+
         
-        
-        
-    private:
-        
-        
-    protected:
-        ProtoWorld* world;
+        std::unique_ptr<ProtoWorld> world;
         int appWidth;
         int appHeight;
         std::string appTitle;
+        
+        // things to add
+        
+        
+       
         
         
     };

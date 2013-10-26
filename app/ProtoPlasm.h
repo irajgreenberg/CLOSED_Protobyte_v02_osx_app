@@ -22,21 +22,25 @@
 
 namespace ijg {
     
-    class ProtoPlasm{
+    class ProtoPlasm {
         
     public:
-        explicit ProtoPlasm(ProtoBaseApp* p);
-        ProtoPlasm(int appWidth, int appHeight, std::string appTitle, ProtoBaseApp* p);
+        explicit ProtoPlasm(ProtoBaseApp* baseApp);
+        ProtoPlasm(int appWidth, int appHeight, std::string appTitle, ProtoBaseApp* baseApp);
        
         
     private:
-        ProtoPlasm(); // prohibit default
         
         void initSFMLInit();
         void initSFMLRun();
         
-        ProtoWorld* world;
+        // cross-platform SFML Window
         sf::Window* window;
+        
+        // Master controller class, manages view, lighting and rendering
+        std::unique_ptr<ProtoWorld> world;
+        
+        // base app class for user defined app classes
         ProtoBaseApp* baseApp;
         
         int appWidth;

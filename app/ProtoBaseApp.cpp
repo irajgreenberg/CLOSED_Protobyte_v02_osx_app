@@ -12,38 +12,44 @@ using namespace ijg;
 
 // required call by subclass cstr
 ProtoBaseApp::ProtoBaseApp() {
-   // world = ProtoWorld::getInstance();
-    std::cout << "in ProtoBaseApp CSTR"<<std::endl;
-    //world = ProtoWorld::getInstance();
+    //std::cout << "in base class cstr" << std::endl;
 }
 
-void ProtoBaseApp::setAppWindowDetails(int appWidth, int appHeight, std::string appTitle){
-    this->appWidth = appWidth;
-    this->appHeight = appHeight;
-    this->appTitle = appTitle;
-    //world = ijg::ProtoWorld::getInstance(appWidth, appHeight);
-    // ProtoWorld
-    //world = ijg::ProtoWorld::getInstance(windowX, windowY);
-    //std::cout << "world = " << world << std::endl;
-    
-    
+// get handle to world
+void ProtoBaseApp::setWorld(std::unique_ptr<ProtoWorld> world){
+    this->world = std::move(world);
 }
 
-void ProtoBaseApp::add(ProtoGeom3* geom){
-    //world = ProtoWorld::getInstance();
-    world->add(geom);
+// ownerhship was passed from Protoplasm to BaseApp, so BaseApp must start World rendering loop
+void ProtoBaseApp::runWorld() {
+    world->run();
 }
 
 
+void ProtoBaseApp::add(std::unique_ptr<ProtoGeom3> geom){
+    world->add(std::move(geom));
+}
+
+void ProtoBaseApp::add(std::unique_ptr<ProtoLight> lt){
+     world->add(std::move(lt));
+}
+
+void ProtoBaseApp::add(std::unique_ptr<ProtoCamera> cam){
+    world->add(std::move(cam));
+}
+
+
+// EVENTS
 void ProtoBaseApp::keyPressed(){}
- void ProtoBaseApp::mousePressed(){}
- void ProtoBaseApp::mouseRightPressed(){}
- void ProtoBaseApp::mouseReleased(){}
- void ProtoBaseApp::mouseRightReleased(){}
- void ProtoBaseApp::mouseMoved(){}
- void ProtoBaseApp::mouseDragged(){}
+void ProtoBaseApp::mousePressed(){}
+void ProtoBaseApp::mouseRightPressed(){}
+void ProtoBaseApp::mouseReleased(){}
+void ProtoBaseApp::mouseRightReleased(){}
+void ProtoBaseApp::mouseMoved(){}
+void ProtoBaseApp::mouseDragged(){}
 
 // window events
- void ProtoBaseApp::onResized(){}
- void ProtoBaseApp::onClosed(){}
+void ProtoBaseApp::onResized(){}
+void ProtoBaseApp::onClosed(){}
+
 

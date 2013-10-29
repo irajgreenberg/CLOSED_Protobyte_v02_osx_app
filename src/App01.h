@@ -11,12 +11,26 @@
 
 #include "ProtoBaseApp.h"
 #include <iostream>
+#include "ProtoVerletBall.h"
+#include "ProtoVerletStick.h"
 
 using namespace ijg;
 
 class App01 : public ProtoBaseApp {
 
 private:
+    std::unique_ptr<ProtoToroid> toroid2;
+    std::shared_ptr<ProtoVerletBall> ball1;
+    std::shared_ptr<ProtoVerletBall> ball2;
+    std::unique_ptr<ProtoVerletStick> stick;
+    
+    /* vector of balls (1d will store 2d data)
+     need to be shared_ptrs because balls are
+     connected to multiple lines */
+    std::vector< std::shared_ptr<ProtoVerletBall> >  balls;
+    
+    // vector of sticks
+    std::vector< std::unique_ptr<ProtoVerletStick> >  sticks;
 
 public:
     App01();

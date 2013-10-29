@@ -63,7 +63,7 @@ void ProtoPlasm::initSFMLInit(){
     std::unique_ptr<ijg::ProtoCamera> camera4(new ijg::ProtoCamera(Vec3f(0, 0, 4.9), Vec3f(0, 124, 0), ProtoBoundsf(0, 0,appWidth, appHeight)));
     
     // Camera
-    camera1->setProjection(40.0f, appWidth/appHeight, .1, 1000);
+    camera1->setProjection(75.0f, appWidth/appHeight, .1, 1000);
     camera2->setProjection(60.0f, appWidth/appHeight, .1, 1000);
     camera3->setProjection(110.0f, appWidth/appHeight, .1, 1000);
     camera4->setProjection(60.0f, appWidth/appHeight, .1, 1000);
@@ -73,18 +73,18 @@ void ProtoPlasm::initSFMLInit(){
 //    camera3->setViewPort(window.getSize().x/2, window.getSize().y/2, window.getSize().x/2, window.getSize().y/2);
 //    camera4->setViewPort(window.getSize().x/2, 0, window.getSize().x/2, window.getSize().y/2);
 //
-//   world.add(std::move(camera1));
-//    world.add(std::move(camera2));
-//    world.add(std::move(camera3));
-//    world.add(std::move(camera4));
-    
-    camera1->setViewPort(0, 0, appWidth, appHeight);
     world->add(std::move(camera1));
+//    world->add(std::move(camera2));
+//    world->add(std::move(camera3));
+//    world->add(std::move(camera4));
+    
+   // camera1->setViewPort(0, 0, appWidth, appHeight);
+   // world->add(std::move(camera1));
 
     // Lights
     // Light 1
     std::unique_ptr<ijg::ProtoLight> lt0_ptr = std::unique_ptr<ijg::ProtoLight>(new ProtoLight());
-    lt0_ptr->setShininess(15.0);
+    lt0_ptr->setShininess(105.0);
     lt0_ptr->setDiffuse(ProtoColor4f(1.0, .5, 0, 1.0));
     lt0_ptr->setSpecular(ProtoColor4f(1.0, 1.0, 1.0, 1.0));
     lt0_ptr->setAmbient(ProtoColor4f(.4, .4, .4, 1.0));
@@ -93,7 +93,7 @@ void ProtoPlasm::initSFMLInit(){
     
     // Light 2
     std::unique_ptr<ijg::ProtoLight> lt1_ptr = std::unique_ptr<ijg::ProtoLight>(new ProtoLight());
-    lt1_ptr->setShininess(15.0);
+    lt1_ptr->setShininess(105.0);
     lt1_ptr->setDiffuse(ProtoColor4f(1.0, .5, 0, 1.0));
     lt1_ptr->setSpecular(ProtoColor4f(1.0, 1.0, 1.0, 1.0));
     lt1_ptr->setAmbient(ProtoColor4f(.4, .4, .4, 1.0));

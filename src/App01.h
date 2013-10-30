@@ -11,8 +11,8 @@
 
 #include "ProtoBaseApp.h"
 #include <iostream>
-#include "ProtoVerletBall.h"
-#include "ProtoVerletStick.h"
+
+#include "ProtoVerletSurface.h"
 
 using namespace ijg;
 
@@ -31,6 +31,9 @@ private:
     
     // vector of sticks
     std::vector< std::unique_ptr<ProtoVerletStick> >  sticks;
+    
+    
+    std::unique_ptr<ProtoVerletSurface> verletSurf;
 
 public:
     App01();

@@ -5,7 +5,9 @@
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
 
+#include "ProtoPlasm.h"
 #include "../../Protobyte_v02/ProtoWorld.h"
+#include "../../Protobyte_v02/ProtoColor4.h"
 #include "../../Protobyte_v02/ProtoMath.h"
 #include "../../Protobyte_v02/ProtoVector2.h"
 #include "../../Protobyte_v02/ProtoVector3.h"
@@ -14,6 +16,18 @@
 #include "../../Protobyte_v02/ProtoSphere.h"
 #include "../../Protobyte_v02/ProtoTube.h"
 #include "../../Protobyte_v02/ProtoLight.h"
+
+// proproc dir for relative resource loading
+// from http://stackoverflow.com/questions/143174/how-do-i-get-the-directory-that-a-program-is-running-from
+#include <stdio.h>  /* defines FILENAME_MAX */
+#ifdef WINDOWS
+#include <direct.h>
+#define GetCurrentDir _getcwd
+#else
+#include <unistd.h>
+#define GetCurrentDir getcwd
+#endif
+// end relative loading proproc dir
 
 
 #ifndef PROTO_BASEAPP_H

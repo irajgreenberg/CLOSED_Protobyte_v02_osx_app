@@ -25,8 +25,13 @@ namespace ijg {
     class ProtoPlasm {
         
     public:
+        static int frameCount;
+        static int frameRate;
+        
+        
         explicit ProtoPlasm(ProtoBaseApp* baseApp);
         ProtoPlasm(int appWidth, int appHeight, std::string appTitle, ProtoBaseApp* baseApp);
+        
        
         
     private:
@@ -47,6 +52,9 @@ namespace ijg {
         int appHeight;
         std::string appTitle;
     };
+    
+    #define frameCount ProtoPlasm::frameCount
+    #define frameRate ProtoPlasm::frameRate
 }
 
 #endif /* defined(__Protobyte_dev_v02__ProtoPlasm__) */

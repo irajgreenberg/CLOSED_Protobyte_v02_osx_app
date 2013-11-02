@@ -124,6 +124,7 @@
 		722DB7751817D76200A5A716 /* ProtoMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProtoMain.cpp; path = app/ProtoMain.cpp; sourceTree = "<group>"; };
 		7241A87B17BD63A300DBF38C /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		7241A87D17BD63AA00DBF38C /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
+		725D47F11821FD2200C6F14B /* stiller.raw */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = stiller.raw; path = resources/stiller.raw; sourceTree = SOURCE_ROOT; };
 		72675EF6181FDB9B001403AC /* ProtoVerletSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProtoVerletSurface.cpp; path = ../Protobyte_v02/ProtoVerletSurface.cpp; sourceTree = "<group>"; };
 		72675EF7181FDB9B001403AC /* ProtoVerletSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProtoVerletSurface.h; path = ../Protobyte_v02/ProtoVerletSurface.h; sourceTree = "<group>"; };
 		72B5ED81181C5D1200DA614C /* ProtoBlock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProtoBlock.cpp; path = ../Protobyte_v02/ProtoBlock.cpp; sourceTree = "<group>"; };
@@ -151,6 +152,7 @@
 		2A990B6618183599005DD10E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				725D47F11821FD2200C6F14B /* stiller.raw */,
 				2A990B6718183599005DD10E /* defaultShader.frag */,
 				2A990B6818183599005DD10E /* defaultShader.vert */,
 			);

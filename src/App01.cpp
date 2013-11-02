@@ -8,8 +8,12 @@
 
 #include "App01.h"
 
+#include <unistd.h>
+#define GetCurrentDir getcwd
+
 using namespace ijg;
 float x = 0;
+float tx = 0;
 float theta = 0;
 int ind = 0;
 int ind2 = 0;
@@ -21,119 +25,52 @@ App01::App01(){
 
 void App01::init(){
     
+    // START for relative resource loading
+    char cCurrentPath[FILENAME_MAX];
+    if (!GetCurrentDir(cCurrentPath, sizeof(cCurrentPath)))
+    {
+        std::cout << "error lodaing form relative directory" << std::endl;
+        //return errno;
+    }
+    cCurrentPath[sizeof(cCurrentPath) - 1] = '\0'; /* not really required */
+    std::string cp = cCurrentPath; //cast char[] to string
+    std::string imgName = "/stiller.raw";
+    std::string url = cp+imgName;
+    // END for relative resource loading
+    
+    
     verletSurf = std::unique_ptr<ProtoVerletSurface> (new ProtoVerletSurface(Vec3f(0,0,0),
-                Vec3f(0,0,0), Dim3f(200, 200, 0), ProtoColor4f(.6, .6, .8, 1.0), 41, 41, .005));
+                                                                             Vec3f(0,0,0), Dim3f(100, 100, 1), ProtoColor4f(.6, .6, .8, .2), 47, 47, .2/*.05*/, url)); // 91, 91
+    toroid2 = std::unique_ptr<ProtoToroid> (new ProtoToroid(Vec3f(0, 0, 0), Vec3f(0, ProtoMath::PI/3.0,0), Dim3f(20, 20, 20),ProtoColor4f(.5, .2, .3, .2), 75, 75, .9, .2));
+    glDepthMask(true);
+    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_CULL_FACE);
     
-    toroid2 = std::unique_ptr<ProtoToroid> (new ProtoToroid(Vec3f(0, 0, 0), Vec3f(0, ProtoMath::PI/3.0,0), Dim3f(20, 20, 20),ProtoColor4f(.5, .2, .3, 1), 75, 75, .9, .2));
-    
-    ball1 =  std::shared_ptr<ProtoVerletBall>(new ProtoVerletBall(Vec3f(-10, 0, 0)));
-    ball2 = std::shared_ptr<ProtoVerletBall>(new ProtoVerletBall(Vec3f(10, 0, 0)));
-    stick = std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(ball1, ball2, .5, Tup2f(0, 1)));
-    //std::cout << stick << std::endl;
-    stick->nudgeB2(Vec3f(.2, .3, .5));
-    
-    // verlet sheet
-    int rows = 81, cols = 81;
-    ind = (rows-2)/2*(cols) + cols/2;
-    float w = 200;
-    float h = 200;
-    float cellW = w/cols;
-    float cellH = h/rows;
-    for(int i=0; i<rows; ++i){
-        for(int j=0; j<cols; ++j){
-            float x = -w/2 + cellW*j;
-            float y = h/2 - cellH*i;
-            balls.push_back(std::shared_ptr<ProtoVerletBall>(new ProtoVerletBall(Vec3f(x, y, 0))));
-        }
-    }
-    
-    float tension = .01;
-    for(int i=0, k=0, l=0, m=0, n=0; i<rows-1; ++i){
-        for(int j=0; j<cols-1; ++j){
-            k = i*cols+j;
-            l = (i+1)*cols+j;
-            m = (i+1)*cols+j+1;
-            n = i*cols+j+1;
-            // corners
-            // TL
-            if (i==0 && j==0){
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(k), balls.at(l), tension, Tup2f(0, 1))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(l), balls.at(m), tension, Tup2f(.5, .5))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(m), balls.at(n), tension, Tup2f(.5, .5))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(n), balls.at(k), tension, Tup2f(1, 0))));
-                // diag
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(k), balls.at(m), tension, Tup2f(0, 1))));
-                // TR
-            } else  if (i==0 && j==cols-2){
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(k), balls.at(l), tension, Tup2f(.5, .5))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(l), balls.at(m), tension, Tup2f(.5, .5))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(m), balls.at(n), tension, Tup2f(1, 0))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(n), balls.at(k), tension, Tup2f(0, 1))));
-                // diag
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(k), balls.at(m), tension, Tup2f(.5, .5))));
-                // BR
-            }  else  if (i==rows-2 && j==cols-2){
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(k), balls.at(l), tension, Tup2f(.5, .5))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(l), balls.at(m), tension, Tup2f(1, 0))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(m), balls.at(n), tension, Tup2f(0, 1))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(n), balls.at(k), tension, Tup2f(.5, .5))));
-                // diag
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(k), balls.at(m), tension, Tup2f(.5, 0))));
-                //BL
-            } else  if (i==rows-2 && j==0){
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(k), balls.at(l), tension, Tup2f(1, 0))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(l), balls.at(m), tension, Tup2f(0, 1))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(m), balls.at(n), tension, Tup2f(.5, .5))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(n), balls.at(k), tension, Tup2f(.5, .5))));
-                // diag
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(k), balls.at(m), tension, Tup2f(.5, .5))));
-            } else {
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(k), balls.at(l), tension, Tup2f(.5, .5))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(l), balls.at(m), tension, Tup2f(.5, .5))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(m), balls.at(n), tension, Tup2f(.5, .5))));
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(n), balls.at(k), tension, Tup2f(.5, .5))));
-                // diag
-                sticks.push_back(std::unique_ptr<ProtoVerletStick>(new ProtoVerletStick(balls.at(k), balls.at(m), tension, Tup2f(.5, .5))));
-                
-            }
-            
-        }
-    }
-    //sticks.at(static_cast<int>(cols*rows/2+(cols-1)/2))->nudgeB2(Vec3f(0, 0, 102.8));
-    //verletSurf->nudge(4);
-    
-    balls.at(4)->pos.z += 1.5;
-    
+    verletSurf->setMeshColor(Col4f(.8, .4, 0, .1));
 }
 
 // event thread runs continuously
 //ProtoWorld draw independently
 void App01::run(){
+    
+    //std::cout << "frameCount = " << frameCount << std::endl;
+    //std::cout << "frameRate = " << frameRate << std::endl;
     //std::cout << "ind = " << ind << std::endl;
     glPushMatrix();
-    glTranslatef(0, 0, -200);
+    glTranslatef(0, 0, -200+tx);
+    tx+=.05;
     glRotatef(x+=.2, 1, 1, 0);
-    //toroid2->display();
-   
-    //stick->constrainLen();
-    //stick->display();
-    
-//    for(int i=0; i<sticks.size(); ++i){
-//        sticks.at(i)->constrainLen();
-//        sticks.at(i)->display();
-//    }
-    
-     //glPushMatrix();
     //glRotatef(90, 0, 1, 0);
-    verletSurf->flow();
-    verletSurf->display(ProtoGeom3::VERTEX_BUFFER_OBJECT, ProtoGeom3::WIREFRAME, .2);
-   // glPopMatrix();
+    //toroid2->display();
+     verletSurf->flow();
+    verletSurf->setMeshColor(Col4f(1.0, 1.0, 1.0, 1.0)); // not really working at present
+   
+    glEnable(GL_TEXTURE_2D);
+    verletSurf->display(ProtoGeom3::VERTEX_BUFFER_OBJECT, ProtoGeom3::SURFACE, .1);
+    glDisable(GL_TEXTURE_2D);
+    verletSurf->setMeshColor(Col4f(.4, .4, .4, .2));
+    verletSurf->display(ProtoGeom3::VERTEX_BUFFER_OBJECT, ProtoGeom3::WIREFRAME, .01);
     glPopMatrix();
-    
-//    ind2 = ProtoMath::random(60, ind);
-//    balls.at(ind)->pos += Vec3f(cos(-theta)*ProtoMath::random(.1, .4), sin(theta)*ProtoMath::random(.1, .4), sin(theta)*ProtoMath::random(.1, 1.4));
-//    theta += ProtoMath::random(4, 12)*ProtoMath::PI/180.0;
-    
     
 }
 

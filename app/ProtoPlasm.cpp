@@ -10,6 +10,10 @@
 
 using namespace ijg;
 
+// init static globals
+int ProtoPlasm::frameCount = 0;
+int ProtoPlasm::frameRate = 0;
+
 
 ProtoPlasm::ProtoPlasm(ProtoBaseApp* baseApp):
 baseApp(baseApp), appWidth(1024), appHeight(764), appTitle("Protobyte App")
@@ -42,9 +46,11 @@ void ProtoPlasm::initSFMLInit(){
     sf::ContextSettings settings;
     settings.depthBits = 32;
     settings.stencilBits = 8;
-    settings.antialiasingLevel = 4;
+    settings.antialiasingLevel = 8;
     settings.majorVersion = 3;
     settings.minorVersion = 0;
+    
+   
     
     // create the window and GL context
     window = new sf::Window(sf::VideoMode(appWidth, appHeight), appTitle, sf::Style::Default, settings);
@@ -107,10 +113,11 @@ void ProtoPlasm::initSFMLInit(){
     
     baseApp->setWorld(std::move(world));
     
+    
+    
     // Activate derived user class implementation.
     baseApp->init();
-    
-}
+    }
 
 void ProtoPlasm::initSFMLRun(){
     
@@ -126,9 +133,47 @@ void ProtoPlasm::initSFMLRun(){
     
     // run the SFML main loop
     bool running = true;
+    
+    sf::Clock clock;
+    
     while (running)
     {
-       //
+        /*
+         TO DO – fix timing issues with control for users:
+         From: http://stackoverflow.com/questions/2182675/how-do-you-make-sure-the-speed-of-opengl-animation-is-consistent-on-different-ma
+         This is the poor man's solution:
+         
+         FPS = 60.0;
+         while (game_loop) {
+         int t = getticks();
+         if ((t - t_prev) > 1000/FPS)
+         process_animation_tick();
+         t_prev = t;
+         }
+         
+         this is the better solution:
+         
+         GAME_SPEED = ...
+         while (game_loop) {
+         int t = getticks();
+         process_animation((t - t_prev)*GAME_SPEED/1000.0);
+         t_prev = t;
+         }
+
+         
+         */
+        
+        ++frameCount;
+        sf::Time elapsedT = clock.restart();
+        frameRate = 1.0/elapsedT.asSeconds();
+        //std::cout << "frameRate = "<< frameRate << std::endl;
+        
+        sf::Time elapsed = clock.getElapsedTime();
+        if(frameCount%60==0){
+            //std::cout << "clock running at 60 fps"<< std::endl;
+        }
+        
+        //std::cout << " elapsed.asSeconds() = " <<  elapsed.asSeconds()<<std::endl;
         
         // Activate derived user class implementation.
         baseApp->runWorld();

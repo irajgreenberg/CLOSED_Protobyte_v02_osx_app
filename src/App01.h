@@ -21,6 +21,7 @@ class App01 : public ProtoBaseApp {
 private:
     std::unique_ptr<ProtoToroid> toroid2;
     std::unique_ptr<ProtoVerletSurface> verletSurf;
+    std::unique_ptr<ProtoVerletSurface> verletSurfs[6];
 
 public:
     App01();

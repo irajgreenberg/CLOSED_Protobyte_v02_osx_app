@@ -138,6 +138,8 @@ void ProtoPlasm::initSFMLRun(){
     
     while (running)
     {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+         //glMatrixMode(GL_MODELVIEW);
         /*
          TO DO – fix timing issues with control for users:
          From: http://stackoverflow.com/questions/2182675/how-do-you-make-sure-the-speed-of-opengl-animation-is-consistent-on-different-ma

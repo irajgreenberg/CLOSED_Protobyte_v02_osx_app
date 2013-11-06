@@ -33,33 +33,30 @@ void App01::init(){
         std::cout << "error loading from relative directory" << std::endl;
         //return errno;
     }
+    // NOTE - make workspace project relative instead of using default derivedData path in Library
     std::cout << "cCurrentPath = " << cCurrentPath << std::endl;
     cCurrentPath[sizeof(cCurrentPath) - 1] = '\0'; /* not really required */
     std::string cp = cCurrentPath; //cast char[] to string
-    std::string imgName = "/stiller.raw";
-    std::string url = cp+imgName;
+    std::string pathExtension = "/resources/imgs";
+    std::string imgName = "/leather.raw";
+    std::string url = cp+pathExtension+imgName;
     std::cout << "url = " << url << std::endl;
     //std::string url = "/Users/33993405/Dropbox/ira_dev/Protobyte_dev_v02_OSX/build/resources/stiller.raw";
 
     // END for relative resource loading
     
-    
-    verletSurf = std::unique_ptr<ProtoVerletSurface> (new ProtoVerletSurface(Vec3f(0,0,0),
-                                                                             Vec3f(0,0,0), Dim3f(70, 70, 1), ProtoColor4f(.6, .6, .8, .2), 47, 47, .2/*.05*/, url, ProtoVerletSurface::ALL_EDGES)); // 91, 91
-    
-    std::string cows[6] = {"../../../Protobyte_v02/resources/imgs/water.raw", "../../../Protobyte_v02/resources/imgs/water.raw", "../../../Protobyte_v02/resources/imgs/water.raw", "../../../Protobyte_v02/resources/imgs/water.raw", "../../../Protobyte_v02/resources/imgs/water.raw", "../../../Protobyte_v02/resources/imgs/water.raw"};
+    std::string textureImgs[6] = {url, url, url, url, url, url};
     
     
     for(int i=0; i<6; ++i) {
         verletSurfs[i] = std::unique_ptr<ProtoVerletSurface> (new ProtoVerletSurface(Vec3f(0,0,0),
-                                                                                     Vec3f(0,0,0), Dim3f(70, 70, 1), ProtoColor4f(ProtoMath::random(.7, 1.0), 1.0, 1.0, 1.0), 47, 47, /*ProtoMath::random(.3, .8)*/ProtoMath::random(.01, .1), cows[i], ProtoVerletSurface::ALL_EDGES)); // 91, 91
+                                                                                     Vec3f(0,0,0), Dim3f(70, 70, 1), ProtoColor4f(ProtoMath::random(.7, 1.0), 1.0, 1.0, .8), 27, 27, /*ProtoMath::random(.3, .8)*/ProtoMath::random(.01, .1), textureImgs[i], ProtoVerletSurface::ALL_EDGES)); // 91, 91
     }
-    toroid2 = std::unique_ptr<ProtoToroid> (new ProtoToroid(Vec3f(0, 0, 0), Vec3f(0, ProtoMath::PI/3.0,0), Dim3f(20, 20, 20),ProtoColor4f(.5, .2, .3, .2), 75, 75, .9, .2));
+//    toroid2 = std::unique_ptr<ProtoToroid> (new ProtoToroid(Vec3f(0, 0, 0), Vec3f(0, ProtoMath::PI/3.0,0), Dim3f(20, 20, 20),ProtoColor4f(.5, .2, .3, 1.0), 75, 75, .9, .2));
     glDepthMask(true);
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
     
-    verletSurf->setMeshColor(Col4f(.8, .4, 0, .1));
 }
 
 // event thread runs continuously
@@ -74,7 +71,8 @@ void App01::run(){
     //tx+=.05;
     glRotatef(x+=.2, 1, .75, .3);
     //glRotatef(90, 0, 1, 0);
-    //toroid2->display();
+    glDisable(GL_TEXTURE_2D);
+   // toroid2->display();
     
     
     for(int i=0; i<6; ++i) {

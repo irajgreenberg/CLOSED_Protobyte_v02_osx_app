@@ -47,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A1B834A182AA35B00EEE2C6 /* ProtoGeomSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProtoGeomSet.h; path = ../Protobyte_v02/ProtoGeomSet.h; sourceTree = "<group>"; };
 		2A2D4264181599E900D5E907 /* sfml-audio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-audio.framework"; path = "/Library/Frameworks/sfml-audio.framework"; sourceTree = "<absolute>"; };
 		2A2D4265181599E900D5E907 /* sfml-graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-graphics.framework"; path = "/Library/Frameworks/sfml-graphics.framework"; sourceTree = "<absolute>"; };
 		2A2D4266181599E900D5E907 /* sfml-network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-network.framework"; path = "/Library/Frameworks/sfml-network.framework"; sourceTree = "<absolute>"; };
@@ -182,6 +183,7 @@
 				2A990B3618183599005DD10E /* ProtoFrenetFrame.h */,
 				2A990B3718183599005DD10E /* ProtoGeom3.cpp */,
 				2A990B3818183599005DD10E /* ProtoGeom3.h */,
+				2A1B834A182AA35B00EEE2C6 /* ProtoGeomSet.h */,
 				2A990B3918183599005DD10E /* ProtoGLInfo.h */,
 				2A990B3C18183599005DD10E /* ProtoLight.cpp */,
 				2A990B3D18183599005DD10E /* ProtoLight.h */,
@@ -221,12 +223,12 @@
 				2AF8F03B181EC96B0083C8FC /* ProtoVerletBall.h */,
 				2AF8F03C181EC96B0083C8FC /* ProtoVerletStick.cpp */,
 				2AF8F03D181EC96B0083C8FC /* ProtoVerletStick.h */,
+				72675EF6181FDB9B001403AC /* ProtoVerletSurface.cpp */,
+				72675EF7181FDB9B001403AC /* ProtoVerletSurface.h */,
 				2A990B871818393C005DD10E /* ProtoVertex3.cpp */,
 				2A990B6318183599005DD10E /* ProtoVertex3.h */,
 				2A990B6418183599005DD10E /* ProtoWorld.cpp */,
 				2A990B6518183599005DD10E /* ProtoWorld.h */,
-				72675EF6181FDB9B001403AC /* ProtoVerletSurface.cpp */,
-				72675EF7181FDB9B001403AC /* ProtoVerletSurface.h */,
 			);
 			name = "Protobyte_v02 Lib";
 			sourceTree = "<group>";
@@ -489,6 +491,7 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -500,6 +503,7 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

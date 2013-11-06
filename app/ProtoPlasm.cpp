@@ -56,6 +56,10 @@ void ProtoPlasm::initSFMLInit(){
     window = new sf::Window(sf::VideoMode(appWidth, appHeight), appTitle, sf::Style::Default, settings);
     window->setVerticalSyncEnabled(true);
     
+    // set gl states
+    glEnable(GL_NORMALIZE);
+    glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
+    
     
     // World
     // instantiate world
@@ -90,7 +94,7 @@ void ProtoPlasm::initSFMLInit(){
     // Lights
     // Light 1
     std::unique_ptr<ijg::ProtoLight> lt0_ptr = std::unique_ptr<ijg::ProtoLight>(new ProtoLight());
-    lt0_ptr->setShininess(105.0);
+    lt0_ptr->setShininess(128.0);
     lt0_ptr->setDiffuse(ProtoColor4f(1.0, .5, 0, 1.0));
     lt0_ptr->setSpecular(ProtoColor4f(1.0, 1.0, 1.0, 1.0));
     lt0_ptr->setAmbient(ProtoColor4f(.4, .4, .4, 1.0));
@@ -99,7 +103,7 @@ void ProtoPlasm::initSFMLInit(){
     
     // Light 2
     std::unique_ptr<ijg::ProtoLight> lt1_ptr = std::unique_ptr<ijg::ProtoLight>(new ProtoLight());
-    lt1_ptr->setShininess(105.0);
+    lt1_ptr->setShininess(128.0);
     lt1_ptr->setDiffuse(ProtoColor4f(1.0, .5, 0, 1.0));
     lt1_ptr->setSpecular(ProtoColor4f(1.0, 1.0, 1.0, 1.0));
     lt1_ptr->setAmbient(ProtoColor4f(.4, .4, .4, 1.0));

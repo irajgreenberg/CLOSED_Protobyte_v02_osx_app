@@ -30,6 +30,10 @@ ProtoPlasm:: ProtoPlasm(int appWidth, int appHeight, std::string appTitle, Proto
    // std::cout << " baseApp = " << baseApp << std::endl;
    // std::cout << " this->baseApp = " << this->baseApp << std::endl;
     this->baseApp = baseApp;
+    baseApp->setWidth(appWidth);
+    baseApp->setHeight(appHeight);
+    baseApp->setSize(Dim2i(appWidth, appHeight));
+    
     this->appWidth = appWidth;
     this->appHeight = appHeight;
     this->appTitle = appTitle;
@@ -57,6 +61,7 @@ void ProtoPlasm::initSFMLInit(){
     window->setVerticalSyncEnabled(true);
     
     // set gl states
+    //glClearColor(1.0f, 1.0, .25, 1.0f);
     glEnable(GL_NORMALIZE);
     glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
     

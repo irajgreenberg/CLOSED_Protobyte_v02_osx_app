@@ -18,13 +18,17 @@ float theta = 0;
 int ind = 0;
 int ind2 = 0;
 
-App01::App01(){
-    // call base class 1st
-    //std::cout << "in derived class cstr" << std::endl;
-}
 
 void App01::init(){
     
+    // set window background color
+    setBackground(.3, 1, 1);
+    
+    //window size is read only
+    std::cout << "window width = " << getWidth() << std::endl;
+    std::cout << "window height = " << getHeight() << std::endl;
+    std::cout << "window size = " << getSize() << std::endl;
+//
     // START for relative resource loading
     char cCurrentPath[FILENAME_MAX];
     
@@ -34,13 +38,14 @@ void App01::init(){
         //return errno;
     }
     // NOTE - make workspace project relative instead of using default derivedData path in Library
-    std::cout << "cCurrentPath = " << cCurrentPath << std::endl;
+    //std::cout << "cCurrentPath = " << cCurrentPath << std::endl;
     cCurrentPath[sizeof(cCurrentPath) - 1] = '\0'; /* not really required */
     std::string cp = cCurrentPath; //cast char[] to string
+    std::cout << "current path = " << cp << std::endl;
     std::string pathExtension = "/resources/imgs";
-    std::string imgName = "/leather.raw";
+    std::string imgName = "/shipPlate.raw";
     std::string url = cp+pathExtension+imgName;
-    std::cout << "url = " << url << std::endl;
+    //std::cout << "url = " << url << std::endl;
     //std::string url = "/Users/33993405/Dropbox/ira_dev/Protobyte_dev_v02_OSX/build/resources/stiller.raw";
 
     // END for relative resource loading
@@ -50,12 +55,26 @@ void App01::init(){
     
     for(int i=0; i<6; ++i) {
         verletSurfs[i] = std::unique_ptr<ProtoVerletSurface> (new ProtoVerletSurface(Vec3f(0,0,0),
-                                                                                     Vec3f(0,0,0), Dim3f(70, 70, 1), ProtoColor4f(ProtoMath::random(.7, 1.0), 1.0, 1.0, .8), 27, 27, /*ProtoMath::random(.3, .8)*/ProtoMath::random(.01, .1), textureImgs[i], ProtoVerletSurface::ALL_EDGES)); // 91, 91
+                                                                                     Vec3f(0,0,0), Dim3f(40, 40, 1), ProtoColor4f(ProtoMath::random(.7, 1.0), 1.0, 1.0, .8), 37, 37, /*ProtoMath::random(.3, .8)*/ProtoMath::random(.1, .8), textureImgs[i], ProtoVerletSurface::ALL_EDGES)); // 91, 91
     }
 //    toroid2 = std::unique_ptr<ProtoToroid> (new ProtoToroid(Vec3f(0, 0, 0), Vec3f(0, ProtoMath::PI/3.0,0), Dim3f(20, 20, 20),ProtoColor4f(.5, .2, .3, 1.0), 75, 75, .9, .2));
     glDepthMask(true);
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
+//    glEnable(GL_FLAT);
+//    glShadeModel(GL_FLAT);
+
+    
+    /* api ideas
+    setGravity(-1 - 1);
+    setWind(ProtoVector3);
+    setChaos(0-1);
+    setAntiAliasing(0-1);
+    setShading(SMOOTH or FACETED);
+    setLighting();
+     */
+
+    
     
 }
 
@@ -67,7 +86,7 @@ void App01::run(){
     //std::cout << "frameRate = " << frameRate << std::endl;
     //std::cout << "ind = " << ind << std::endl;
     glPushMatrix();
-    glTranslatef(0, 0, -150+tx);
+    glTranslatef(0, 0, -100+tx);
     //tx+=.05;
     glRotatef(x+=.2, 1, .75, .3);
     //glRotatef(90, 0, 1, 0);

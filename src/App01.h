@@ -24,7 +24,6 @@ private:
     std::unique_ptr<ProtoVerletSurface> verletSurfs[6];
 
 public:
-    App01();
     void init();
     void run();
     

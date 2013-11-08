@@ -2,11 +2,18 @@
 #include <GL/glew.h>
 #endif
 
+#include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
 
+#include <unistd.h> // for cCurrentPath
+#define GetCurrentDir getcwd
+
+//#include <iostream>
 #include "ProtoPlasm.h"
+#include "../../Protobyte_v02/ProtoDimension2.h"
 #include "../../Protobyte_v02/ProtoWorld.h"
+#include "../../Protobyte_v02/ProtoColor3.h"
 #include "../../Protobyte_v02/ProtoColor4.h"
 #include "../../Protobyte_v02/ProtoMath.h"
 #include "../../Protobyte_v02/ProtoVector2.h"
@@ -51,6 +58,10 @@ namespace ijg {
         // only needed to be called by ProtoPlasm class - a friend
         void setWorld(std::unique_ptr<ProtoWorld> world);
         void runWorld();
+        // don't let users touch this after context is created
+        void setWidth(int canvasWidth);
+        void setHeight(int canvasHeight);
+        void setSize(const Dim2i& canvasSize);
         
     protected:
         // pure virtual funcs require override
@@ -82,6 +93,25 @@ namespace ijg {
         int appWidth;
         int appHeight;
         std::string appTitle;
+        int canvasWidth;
+        int canvasHeight;
+        Dim2i canvasSize;
+        
+        // background color
+        Col3f bgColor;
+        void setBackground(float r, float g, float b);
+        void setBackground(float c);
+        void setBackground(const Col3f& col);
+        void setBackground(const Col4f& col);
+        
+        // window properties **READ ONLY**
+        int getWidth()const;
+        int getHeight()const;
+        Dim2i getSize()const;
+        
+        // image loading using SFML
+        void loadImage(std::string url);
+       
         
     
         

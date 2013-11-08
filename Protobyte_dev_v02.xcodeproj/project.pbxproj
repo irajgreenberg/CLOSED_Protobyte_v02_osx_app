@@ -121,6 +121,7 @@
 		2AF8F03B181EC96B0083C8FC /* ProtoVerletBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProtoVerletBall.h; path = ../Protobyte_v02/ProtoVerletBall.h; sourceTree = "<group>"; };
 		2AF8F03C181EC96B0083C8FC /* ProtoVerletStick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProtoVerletStick.cpp; path = ../Protobyte_v02/ProtoVerletStick.cpp; sourceTree = "<group>"; };
 		2AF8F03D181EC96B0083C8FC /* ProtoVerletStick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProtoVerletStick.h; path = ../Protobyte_v02/ProtoVerletStick.h; sourceTree = "<group>"; };
+		2AFE4023182C31DF00E4CC1B /* ProtoDimension2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ProtoDimension2.h; path = ../Protobyte_v02/ProtoDimension2.h; sourceTree = "<group>"; };
 		72198DDD17BBDD68005AE9DA /* Protobyte_dev_v02 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Protobyte_dev_v02; sourceTree = BUILT_PRODUCTS_DIR; };
 		722DB7751817D76200A5A716 /* ProtoMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProtoMain.cpp; path = app/ProtoMain.cpp; sourceTree = "<group>"; };
 		7241A87B17BD63A300DBF38C /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
@@ -176,6 +177,7 @@
 				2A990B2F18183599005DD10E /* ProtoConstants.h */,
 				2A990B3018183599005DD10E /* ProtoCurve3.cpp */,
 				2A990B3118183599005DD10E /* ProtoCurve3.h */,
+				2AFE4023182C31DF00E4CC1B /* ProtoDimension2.h */,
 				2A990B3218183599005DD10E /* ProtoDimension3.h */,
 				2A990B3318183599005DD10E /* ProtoFace3.cpp */,
 				2A990B3418183599005DD10E /* ProtoFace3.h */,
